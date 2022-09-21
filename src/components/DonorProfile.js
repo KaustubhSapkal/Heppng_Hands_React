@@ -29,7 +29,7 @@ function DonorProfile() {
             margin: "auto",
           }}
         >
-          Seller Profile Page
+          Donor Profile Page
         </h4>
         <br />
         <h4>Welcome {user.name}</h4>

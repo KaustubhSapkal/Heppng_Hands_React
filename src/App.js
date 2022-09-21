@@ -14,6 +14,9 @@ import DonorProfile from "./components/DonorProfile";
 import ReceiverProfile from "./components/ReceiverProfile";
 import TopSlider from "./components/TopSlider";
 import Footer from "./components/Footer";
+import AddProduct from "./components/AddProduct"
+import EditProduct from './components/EditProduct';
+import MyProducts from './components/MyProducts';
 
 function App() {
   return (
@@ -26,10 +29,14 @@ function App() {
         </div>
         <Switch>
           <Route component={AllProduct} path="/" exact />
+          <Route component={AllProduct} path="/cat/:pcat/:subcat" />
           <Route component={RegDonor} path="/Regdonor" />
           <Route component={RegReceier} path="/register" />
           <Route component={AdminLogin} path="/alogin" />
           <Route component={DonorLogin} path="/slogin" />
+          <Route component={AddProduct} path="/add-product" />          
+          <Route component={EditProduct} path="/edit/:prodid" />          
+          <Route component={MyProducts} path="/myproducts" />  
           <Route component={ReceiverLogin} path="/clogin" />
           <Route component={AdminProfile} path="/aprofile" />
           <Route component={DonorProfile} path="/sprofile" />
