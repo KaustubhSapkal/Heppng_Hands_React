@@ -11,9 +11,7 @@ function EditProduct() {
     prodid: prodid,
     pname: "",
     pcat: "",
-    // subcat: "",
     price: "",
-    // brand: "",
     sellerId: sellerid,
   });
 
@@ -34,7 +32,7 @@ function EditProduct() {
   useEffect(() => {
     console.log(errors);
 
-    axios.get("http://localhost:9090/api/products/" + prodid).then((resp) => {
+    axios.get("http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/api/products/" + prodid).then((resp) => {
       console.log(resp.data.data);
       setProduct(resp.data.data);
     });
@@ -42,7 +40,7 @@ function EditProduct() {
     if (Object.keys(errors).length === 0 && submitted) {
       console.log(product);
       axios
-        .put("http://localhost:9090/api/products/" + prodid, product)
+        .put("http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/api/products/" + prodid, product)
         .then((resp) => {
           let result = resp.data.data;
           console.log(result);
@@ -59,7 +57,7 @@ function EditProduct() {
     <div className="container-fluid">
       <div className="row bg-dark text-light">
         <div class="col-sm-3">
-          <img width="300" src={"http://localhost:9090/" + product.photo} />
+          <img width="300" src={"http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/" + product.photo} />
         </div>
         <div className="col-sm-9">
           <h4 className="text-center p-2">Edit Product Form (Product ID : )</h4>
@@ -106,28 +104,7 @@ function EditProduct() {
                 )}
               </div>
             </div>
-            {/* <div className="form-group form-row">
-              <label className="col-sm-4 form-control-label">
-                Sub Category
-              </label>
-              <div className="col-sm-8">
-                <select
-                  name="subcat"
-                  value={product.subcat}
-                  onChange={handleInput}
-                  className="form-control"
-                >
-                  <option value="">Select Sub Category</option>
-                  <option>Upper Wear</option>
-                  <option>Bottom Wear</option>
-                </select>
-                {errors.subcat && (
-                  <small className="text-danger float-right">
-                    {errors.subcat}
-                  </small>
-                )}
-              </div>
-            </div> */}
+            
             <div className="form-group form-row">
               <label className="col-sm-4 form-control-label">Price</label>
               <div className="col-sm-8">
@@ -145,23 +122,6 @@ function EditProduct() {
                 )}
               </div>
             </div>
-            {/* <div className="form-group form-row">
-              <label className="col-sm-4 form-control-label">Brand</label>
-              <div className="col-sm-8">
-                <input
-                  type="text"
-                  name="brand"
-                  value={product.brand}
-                  onChange={handleInput}
-                  className="form-control"
-                />
-                {errors.brand && (
-                  <small className="text-danger float-right">
-                    {errors.brand}
-                  </small>
-                )}
-              </div>
-            </div> */}
 
             <button className="btn btn-primary float-right">
               Update Product

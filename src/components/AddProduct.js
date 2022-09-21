@@ -43,7 +43,7 @@ function AddProduct() {
       formData.append('sellerId', sellerid);
       console.log(product);
       axios
-        .post('http://localhost:9090/api/products', formData)
+        .post('http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/api/products', formData)
         .then((resp) => {
           let result = resp.data.data;
           console.log(result);

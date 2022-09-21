@@ -7,7 +7,7 @@ function MyProducts() {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:9090/api/products?sellerid=" + sellerid)
+      .get("http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/api/products?sellerid=" + sellerid)
       .then((resp) => {
         console.log(resp.data);
         setProducts(resp.data.data);
@@ -19,11 +19,11 @@ function MyProducts() {
     let resp = window.confirm("Are you sure to delete this product ?");
     if (resp) {
       axios
-        .delete("http://localhost:9090/api/products/" + prodid)
+        .delete("http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/api/products/" + prodid)
         .then((resp) => {
           alert("Product deleted successfully");
           axios
-            .get("http://localhost:9090/api/products?sellerid=" + sellerid)
+            .get("http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/api/products?sellerid=" + sellerid)
             .then((resp) => {
               console.log(resp.data);
               setProducts(resp.data.data);
@@ -56,7 +56,7 @@ function MyProducts() {
                   <td className="text-light">
                     <img
                       width="100"
-                      src={"http://localhost:9090/" + x.photo}
+                      src={"http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/" + x.photo}
                       className="img-thumnail"
                     />
                     {x.pname}

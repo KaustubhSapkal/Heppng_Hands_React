@@ -56,7 +56,7 @@ function AllProduct() {
   const loadDataFromServer = (page = 0, pagesize = 8) => {
     axios
       .get(
-        'http://localhost:9090/api/products/paginated?page=' +
+        'http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/api/products/paginated?page=' +
           page +
           '&pagesize=' +
           pagesize
@@ -74,7 +74,7 @@ function AllProduct() {
     if (pcat !== undefined) {
       axios
         .get(
-          'http://localhost:9090/api/products/cats?cat=' + pcat //+
+          'http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/api/products/cats?cat=' + pcat //+
           // "&subcat=" +
           // subcat
         )
@@ -151,7 +151,7 @@ function AllProduct() {
                 <div className="modal-body">
                   <div className="d-flex">
                     <img
-                      src={'http://localhost:9090/' + item.photo}
+                      src={'http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/' + item.photo}
                       style={{ width: '200px' }}
                     />
                     <div className="ml-3">

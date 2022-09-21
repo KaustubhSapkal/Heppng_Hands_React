@@ -13,7 +13,7 @@ function Product(props) {
         <div className="card-body py-1">
           <img
             style={{ width: "90%", height: "250px", marginBottom: "10px" }}
-            src={"http://localhost:9090/" + x.photo}
+            src={"http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/" + x.photo}
             className="img-thumnail"
           />
           {/* <h6 className="float-left ">Brand :{x.brand}</h6> */}
