@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import {BASE_API} from "./ApiConstant";
 
 function AdminProfile() {
   const email = sessionStorage.getItem("email");
@@ -17,7 +18,7 @@ function AdminProfile() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/api/admin", user)
+      .post(BASE_API+"/api/admin", user)
       .then((resp) => {
         console.log(resp);
         alert("Profile updated successfully");

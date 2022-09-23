@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import uservalidation from "../uservalidation";
 import ReCAPTCHA from "react-google-recaptcha";
+import {BASE_API} from "./ApiConstant";
 
 function RegDonor() {
   const history = useHistory();
@@ -37,10 +38,10 @@ function RegDonor() {
     if (Object.keys(errors).length === 0 && submitted) {
       console.log(user);
       axios
-        .post("http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/api/donors", user)
+        .post(BASE_API+"/api/donors", user)
         .then((resp) => {
           console.log(resp);
-          alert("Seller registered successfully");
+          alert("Donor registered successfully");
           history.push("/slogin");
         })
         .catch((error) => console.log("Error", error));

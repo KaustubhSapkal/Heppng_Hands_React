@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import uservalidation from "../uservalidation";
 import ReCAPTCHA from "react-google-recaptcha";
+import {BASE_API} from "./ApiConstant";
 
 function RegCustomer() {
   const [user, setUser] = useState({
@@ -46,10 +47,10 @@ function RegCustomer() {
     if (Object.keys(errors).length === 0 && submitted) {
       console.log(user);
       axios
-        .post("http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/api/receivers", user)
+        .post(BASE_API+"/api/receivers", user)
         .then((resp) => {
           console.log(resp);
-          alert("Customer registered successfully");
+          alert("Receiver registered successfully");
           history.push("/clogin");
         })
         .catch((error) => console.log("Error", error));

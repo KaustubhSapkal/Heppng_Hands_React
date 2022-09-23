@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import loginvalidation from "../loginvalidation";
 import ReCAPTCHA from "react-google-recaptcha";
+import {BASE_API} from "./ApiConstant";
 
 function AdminLogin() {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ function AdminLogin() {
     if (Object.keys(errors).length === 0 && submitted) {
       console.log(user);
       axios
-        .post("http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/api/admin/validate", user)
+        .post(BASE_API+"/api/admin/validate", user)
         .then((resp) => {
           let result = resp.data.data;
           console.log(resp.data.data);
@@ -45,6 +46,7 @@ function AdminLogin() {
           sessionStorage.setItem("role", "admin");
           dispatch({ type: "IsLoggedIn" });
           history.push("/aprofile");
+          alert("LogIn succesfull");
         })
         .catch((error) => {
           console.log("Error", error);

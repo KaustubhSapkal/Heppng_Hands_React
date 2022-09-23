@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {BASE_API} from "./ApiConstant";
 
-function MyProducts() {
+function AdminProduct() {
   const sellerid = sessionStorage.getItem("id");
   const [products, setProducts] = useState([]);
   useEffect(() => {
     axios
-      .get(BASE_API+"/api/products?sellerid=" + sellerid)
+      .get(BASE_API+"/api/products")
       .then((resp) => {
         console.log(resp.data);
         setProducts(resp.data.data);
@@ -24,7 +24,7 @@ function MyProducts() {
         .then((resp) => {
           alert("Product deleted successfully");
           axios
-            .get(BASE_API+"/api/products?sellerid=" + sellerid)
+            .get(BASE_API+"/api/products")
             .then((resp) => {
               console.log(resp.data);
               setProducts(resp.data.data);
@@ -46,7 +46,7 @@ function MyProducts() {
                 <th>Category</th>
                 {/* <th>Sub Category</th> */}
                 {/* <th>Brand</th> */}
-                
+                <th>Donor</th>
                 <th>Quantity</th>
                 <th>Action</th>
               </tr>
@@ -63,17 +63,12 @@ function MyProducts() {
                     {x.pname}
                   </td>
                   <td className="text-light">{x.pcat}</td>
+                  <td className="text-light">{x.donorName}</td>
                   {/* <td className="text-light">{x.subcat}</td> */}
                   {/* <td className="text-light">{x.brand}</td> */}
                   
                   <td className="text-light ">{x.qty}</td>
                   <td>
-                    <Link
-                      to={"/edit/" + x.prodid}
-                      className="btn btn-primary btn-sm mr-2"
-                    >
-                      Edit
-                    </Link>
                     <button
                       onClick={() => deleteProduct(x.prodid)}
                       className="btn btn-danger btn-sm"
@@ -91,4 +86,4 @@ function MyProducts() {
   );
 }
 
-export default MyProducts;
+export default AdminProduct;

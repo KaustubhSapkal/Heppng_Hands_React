@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import loginvalidation from '../loginvalidation';
 import ReCAPTCHA from "react-google-recaptcha";
+import {BASE_API} from "./ApiConstant";
 
 function ReceiverLogin() {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ function ReceiverLogin() {
       console.log(user);
       axios
 
-        .post('http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/api/receivers/validate', user)
+        .post(BASE_API+'/api/receivers/validate', user)
         .then((resp) => {
           let result = resp.data.data;
           console.log(resp.data.data);
@@ -47,6 +48,7 @@ function ReceiverLogin() {
           sessionStorage.setItem('id', result.id);
           dispatch({ type: 'IsLoggedIn' });
           history.push('/');
+          alert("LogIn succesfull");
         })
         .catch((error) => {
           console.log('Error', error);

@@ -6,10 +6,11 @@ const productvalidation=(values)=>{
     else if(isNaN(!values.pname)){
         errors.pname="Product Name should be character only"
     }
-    
-    if(!values.price){
-        errors.price="Price is required"
+
+    if(!values.qty){
+        errors.qty="Quantity is required"
     } 
+   
     if(!values.pcat){
         errors.pcat="Category is required"
     } 

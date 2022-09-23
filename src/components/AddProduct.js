@@ -2,13 +2,13 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import productvalidation from './productvalidation';
+import {BASE_API} from "./ApiConstant";
 
 function AddProduct() {
   const sellerid = sessionStorage.getItem('id');
   const [product, setProduct] = useState({
     pname: '',
     pcat: '',
-    price: '',
     qty: '',
     sellerId: sellerid,
   });
@@ -38,12 +38,12 @@ function AddProduct() {
       formData.append('pic', selectedPhoto);
       formData.append('pname', product.pname);
       formData.append('pcat', product.pcat);
-      formData.append('price', product.price);
+      
       formData.append('qty', product.qty);
       formData.append('sellerId', sellerid);
       console.log(product);
       axios
-        .post('http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/api/products', formData)
+        .post(BASE_API+'/api/products', formData)
         .then((resp) => {
           let result = resp.data.data;
           console.log(result);
@@ -97,9 +97,8 @@ function AddProduct() {
                       <option value="">Select Category</option>
                       <option>Cloths</option>
                       <option>Furniture</option>
-                      <option>Footware</option>
+                      <option>Footwear</option>
                       <option>Electronics</option>
-                      <option>Bicycle</option>
                       <option>Utensils</option>
                     </select>
                     {errors.pcat && (
@@ -110,23 +109,7 @@ function AddProduct() {
                   </div>
                 </div>
       
-                <div className="form-group form-row ">
-                  <label className="col-sm-4 form-control-label ">Price</label>
-                  <div className="col-sm-8 ">
-                    <input
-                      type="number"
-                      name="price"
-                      value={product.price}
-                      onChange={handleInput}
-                      className="form-control"
-                    />
-                    {errors.price && (
-                      <small className="text-danger float-right">
-                        {errors.price}
-                      </small>
-                    )}
-                  </div>
-                </div>
+                
                 <div className="form-group form-row ">
                   <label className="col-sm-4 form-control-label ">Quantity</label>
                   <div className="col-sm-8 ">

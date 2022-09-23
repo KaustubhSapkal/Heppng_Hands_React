@@ -67,7 +67,7 @@ const RoleNavbar = ({ isLoggedIn }) => {
           </Link>
         </li>
         <li className="nav-item active">
-          <Link className="nav-link text-light" to="/myorders">
+          <Link className="nav-link text-light" to="/request">
             Request
           </Link>
         </li>
@@ -78,36 +78,43 @@ const RoleNavbar = ({ isLoggedIn }) => {
         </li>
       </ul>
     );
+  }else if (sessionStorage.getItem("role") === "admin"){
+    return (
+      <ul className="navbar-nav ml-auto">
+        <li className="nav-item active">
+          <Link className="nav-link text-light" to="/aprofile">
+            Profile
+          </Link>
+        </li>
+        <li className="nav-item active">
+          <Link className="nav-link text-light" to="/donors">
+            Donor
+          </Link>
+        </li>
+        <li className="nav-item active">
+          <Link className="nav-link text-light" to="/receivers">
+            Receiver
+          </Link>
+        </li>
+        <li className="nav-item active">
+          <Link className="nav-link text-light" to="/product">
+            Products
+          </Link>
+        </li>
+        <li className="nav-item active">
+          <Link className="nav-link text-light" to="/orders">
+            Orders
+          </Link>
+        </li>
+        <li className="nav-item active">
+          <Link className="nav-link text-light" onClick={logout} to="#">
+            Logout
+          </Link>
+        </li>
+      </ul>
+    );
   }
-  return (
-    <ul className="navbar-nav ml-auto">
-      <li className="nav-item active">
-        <Link className="nav-link text-light" to="/aprofile">
-          Profile
-        </Link>
-      </li>
-      <li className="nav-item active">
-        <Link className="nav-link text-light" to="/sellers">
-          Donor
-        </Link>
-      </li>
-      <li className="nav-item active">
-        <Link className="nav-link text-light" to="/customers">
-          Receiver
-        </Link>
-      </li>
-      <li className="nav-item active">
-        <Link className="nav-link text-light" to="/orders">
-          Orders
-        </Link>
-      </li>
-      <li className="nav-item active">
-        <Link className="nav-link text-light" onClick={logout} to="#">
-          Logout
-        </Link>
-      </li>
-    </ul>
-  );
+  
 };
 
 export default RoleNavbar;

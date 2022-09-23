@@ -1,3 +1,5 @@
+import {BASE_API} from "./ApiConstant";
+
 function Product(props) {
   const { x, showModal } = props;
   
@@ -13,11 +15,11 @@ function Product(props) {
         <div className="card-body py-1">
           <img
             style={{ width: "90%", height: "250px", marginBottom: "10px" }}
-            src={"http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/" + x.photo}
+            src={BASE_API+"/" + x.photo}
             className="img-thumnail"
           />
-          {/* <h6 className="float-left ">Brand :{x.brand}</h6> */}
-          <h6 className="text-center">Price: ₹{x.price}</h6>
+          
+          
           <h6 className="text-center">Quantity: {x.qty} unit</h6>
         </div>
         <div className="card-footer p-1">

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
+import {BASE_API} from "./ApiConstant";
 
 function ReceiverProfile() {
   const [uname, setUname] = useState(sessionStorage.getItem("uname"));
@@ -18,7 +19,7 @@ function ReceiverProfile() {
   });
 
   useEffect(() => {
-    axios.get("http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/api/receivers/" + id).then((resp) => {
+    axios.get(BASE_API+"/api/receivers/" + id).then((resp) => {
       console.log(resp.data.data);
       setUser(resp.data.data);
     });
@@ -31,7 +32,7 @@ function ReceiverProfile() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put("http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/api/receivers/" + id, user)
+      .put(BASE_API+"/api/receivers/" + id, user)
       .then((resp) => {
         alert("Profile updated successfully");
         setUname(user.name);

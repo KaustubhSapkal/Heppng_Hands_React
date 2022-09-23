@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import loginvalidation from "../loginvalidation";
 import ReCAPTCHA from "react-google-recaptcha";
+import {BASE_API} from "./ApiConstant";
 
 function DonorLogin() {
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ function DonorLogin() {
     if (Object.keys(errors).length === 0 && submitted) {
       console.log(user);
       axios
-        .post("http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/api/donors/validate", user)
+        .post(BASE_API+"/api/donors/validate", user)
         .then((resp) => {
           let result = resp.data.data;
           console.log(resp.data.data);
@@ -45,6 +46,7 @@ function DonorLogin() {
           sessionStorage.setItem("id", result.id);
           dispatch({ type: "IsLoggedIn" });
           history.push("/sprofile");
+          alert("LogIn succesfull");
         })
         .catch((error) => {
           console.log("Error", error);

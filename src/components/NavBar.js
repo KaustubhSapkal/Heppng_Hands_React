@@ -60,6 +60,11 @@ function NavBar() {
     </a>
   </div>
       </li>
+      <li className="nav-item active">
+              <Link className="nav-link text-light" to="/category">
+                CATEGORY
+              </Link>
+            </li>
             
             <li className="nav-item ">
               <Link

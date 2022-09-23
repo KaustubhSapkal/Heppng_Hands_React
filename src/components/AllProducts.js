@@ -5,6 +5,7 @@ import {useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import Product from './Product';
+import {BASE_API} from "./ApiConstant";
 
 function AllProduct() {
   const [products, setProducts] = useState([]);
@@ -24,8 +25,6 @@ function AllProduct() {
     
     setQty(e.target.value)
     
-    console.log("Target ",e.target.value);
-    console.log("Shubham ",inputRef.current.value);
     let val = item.qty-e.target.value;
     if(val < 0){
 
@@ -56,7 +55,7 @@ function AllProduct() {
   const loadDataFromServer = (page = 0, pagesize = 8) => {
     axios
       .get(
-        'http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/api/products/paginated?page=' +
+        BASE_API+'/api/products/paginated?page=' +
           page +
           '&pagesize=' +
           pagesize
@@ -74,7 +73,7 @@ function AllProduct() {
     if (pcat !== undefined) {
       axios
         .get(
-          'http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/api/products/cats?cat=' + pcat //+
+          BASE_API+'/api/products/cats?cat=' + pcat //+
           // "&subcat=" +
           // subcat
         )
@@ -93,7 +92,7 @@ function AllProduct() {
       alert('Please login first to buy product');
       history.push('/clogin');
     } else if (sessionStorage.getItem('role') !== 'customer') {
-      alert('Only customer can buy product');
+      alert('Only receiver can buy product');
     } else {
       if (checkItem(item.prodid)) {
         showModal();
@@ -151,15 +150,14 @@ function AllProduct() {
                 <div className="modal-body">
                   <div className="d-flex">
                     <img
-                      src={'http://helpinghandsspringboot-env.eba-itkavyxn.ap-south-1.elasticbeanstalk.com/' + item.photo}
+                      src={BASE_API+'/' + item.photo}
                       style={{ width: '200px' }}
                     />
                     <div className="ml-3">
                       <h4 className="p-2 text-warning">{item.pname}</h4>
                       
                       <h5 className="px-2">Category: {item.pcat}</h5>
-                      <h5 className="px-2">Seller: {item.sellerName}</h5>
-                      <h5 className="px-2">Price: ₹{item.price}</h5>
+                      <h5 className="px-2">Seller: {item.donorName}</h5>
                       <h5 className="px-2">Quantity Available: {item.qty}</h5>
                       <input
                         id="message"
