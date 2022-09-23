@@ -150,10 +150,17 @@ return(
               disabledClassName={'pagination__link--disabled'}
               activeClassName={'pagination__link--active'}
             />
+            
             <div className="row">
-              {products.map((x) => (
-                <Product key={x.prodid} x={x} showModal={showModal} />
-              ))}
+             {products == "" ? (
+                <h4 >No Available Products</h4>
+                
+             ) : (
+              
+                  products.map((x) => (
+                  <Product key={x.prodid} x={x} showModal={showModal} />
+                )))
+              }
             </div>
           </div>
           {display == 'block' ? (
