@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import loginvalidation from "../loginvalidation";
 import ReCAPTCHA from "react-google-recaptcha";
 import {BASE_API} from "./ApiConstant";
+import swal from 'sweetalert';
 
 function DonorLogin() {
   const dispatch = useDispatch();
@@ -46,22 +47,32 @@ function DonorLogin() {
           sessionStorage.setItem("id", result.id);
           dispatch({ type: "IsLoggedIn" });
           history.push("/sprofile");
-          alert("LogIn succesfull");
+          swal({
+            title: "Login Succesful!",
+            text: "Welcome To Helping Hands",
+            icon: "success",
+            button: "OK",
+          });
         })
         .catch((error) => {
           console.log("Error", error);
-          alert("Invalid username or password");
+          swal({
+            title: "Login Error",
+            text: "Invalid username or password..!!",
+            icon: "error",
+            button: "OK",
+          });
         });
     }
   }, [errors]);
 
   return (
     <div className="container">
-      <div className="card shadow bg-dark text-light mt-3 ">
+      <div className="card shadow mt-5 ml-5  text-dark col-sm-9" style={{background:"#E3F2FD"}}>
         <div className="card-body">
           <div className="row">
             <div className="col-sm-6 mx-auto">
-              <h4 className="text-center p-2">Donor Login Form</h4>
+              <h4 className="text-center p-2">Login</h4>
               <form onSubmit={handleSubmit}>
                 <div className="form-group form-row">
                   <label className="col-sm-4 form-control-label">
@@ -72,6 +83,7 @@ function DonorLogin() {
                       type="text"
                       name="email"
                       value={user.email}
+                      placeholder="name@gmail.com"
                       onChange={handleInput}
                       className="form-control"
                     />
@@ -90,6 +102,7 @@ function DonorLogin() {
                     <input
                       type="password"
                       name="pwd"
+                      placeholder="********"
                       value={user.pwd}
                       onChange={handleInput}
                       className="form-control"

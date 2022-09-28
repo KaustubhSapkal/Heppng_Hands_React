@@ -4,8 +4,9 @@ import { useHistory } from "react-router-dom";
 import uservalidation from "../uservalidation";
 import ReCAPTCHA from "react-google-recaptcha";
 import {BASE_API} from "./ApiConstant";
+import swal from 'sweetalert';
 
-function RegCustomer() {
+function RegReceiver() {
   const [user, setUser] = useState({
     name: "",
     city: "",
@@ -50,19 +51,33 @@ function RegCustomer() {
         .post(BASE_API+"/api/receivers", user)
         .then((resp) => {
           console.log(resp);
-          alert("Receiver registered successfully");
+          //alert("Receiver registered successfully");
+          swal({
+            title: "Registered successfully!",
+            text: "Welcome To Helping Hands",
+            icon: "success",
+            button: "OK",
+          });
           history.push("/clogin");
         })
-        .catch((error) => console.log("Error", error));
+        .catch((error) =>{
+          console.log("Error", error);
+          swal({
+            title: "Network Error!",
+            text: "Please try after some time",
+            icon: "error",
+            button: "OK",
+          });
+        });
     }
   }, [errors]);
   return (
     <div className="container">
-      <div className="card shadow bg-dark mt-3 text-light">
+      <div className="card shadow mt-5 ml-5  text-dark col-sm-9" style={{background:"#E3F2FD"}}>
         <div className="card-body">
           <div className="row">
             <div className="col-sm-6 mx-auto">
-              <h4 className="text-center p-2">Receiver Registration Form</h4>
+              <h4 className="text-center p-2">Sign Up</h4>
               <form onSubmit={handleSubmit}>
                 <div className="form-group form-row">
                   <label className="col-sm-4 form-control-label">
@@ -72,6 +87,7 @@ function RegCustomer() {
                     <input
                       type="text"
                       name="name"
+                      placeholder="name"
                       value={user.name}
                       onChange={handleInput}
                       className="form-control"
@@ -90,6 +106,7 @@ function RegCustomer() {
                       type="text"
                       name="city"
                       value={user.city}
+                      placeholder="city"
                       onChange={handleInput}
                       className="form-control"
                     />
@@ -128,6 +145,7 @@ function RegCustomer() {
                     <input
                       type="text"
                       name="email"
+                      placeholder="name@gmail.com"
                       value={user.email}
                       onChange={handleInput}
                       className="form-control"
@@ -146,6 +164,7 @@ function RegCustomer() {
                       type="number"
                       maxLength="10"
                       name="phone"
+                      placeholder="1234567890"
                       value={user.phone}
                       onChange={handleInput}
                       className="form-control"
@@ -165,6 +184,7 @@ function RegCustomer() {
                     <input
                       type="password"
                       name="pwd"
+                      placeholder="********"
                       value={user.pwd}
                       onChange={handleInput}
                       className="form-control"
@@ -184,6 +204,7 @@ function RegCustomer() {
                     <input
                       type="password"
                       name="cpwd"
+                      placeholder="********"
                       value={user.cpwd}
                       onChange={handleInput}
                       className="form-control"
@@ -212,4 +233,4 @@ function RegCustomer() {
   );
 }
 
-export default RegCustomer;
+export default RegReceiver;

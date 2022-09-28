@@ -27,7 +27,7 @@ function Product(props) {
             onClick={(e) => showModal(x)}
             className="btn btn-primary btn-sm"
           >
-            Buy Now
+            Book Now
           </button>
         </div>
       </div>

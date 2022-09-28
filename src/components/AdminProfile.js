@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import {BASE_API} from "./ApiConstant";
+import swal from 'sweetalert';
 
 function AdminProfile() {
   const email = sessionStorage.getItem("email");
@@ -21,10 +22,21 @@ function AdminProfile() {
       .post(BASE_API+"/api/admin", user)
       .then((resp) => {
         console.log(resp);
-        alert("Profile updated successfully");
+        //alert("Profile updated successfully");
+        swal("Profile updated successfully!", {
+          icon: "success",
+        });
         sessionStorage.setItem("uname", user.uname);
       })
-      .catch((error) => console.log("Error", error));
+      .catch((error) =>{
+        console.log("Error", error);
+        swal({
+          title: "Network Error!",
+          text: "Please try after some time",
+          icon: "error",
+          button: "OK",
+        });
+      });
   };
 
   return (
@@ -32,7 +44,7 @@ function AdminProfile() {
       <h4 className="p-2 text-white text-center">Welcome {user.uname}</h4>
       <div className="row">
         <div className="col-sm-5 mx-auto">
-          <div className="card shadow bg-dark text-light">
+          <div className="card shadow  text-dark" style={{background:"#E3F2FD"}}>
             <div className="card-body">
               <form onSubmit={handleSubmit}>
                 <div className="form-group form-row">

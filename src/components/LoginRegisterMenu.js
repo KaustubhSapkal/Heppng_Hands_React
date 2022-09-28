@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+
 import { Link } from "react-router-dom";
 
 function LoginRegisterMenu() {
@@ -29,6 +29,7 @@ function LoginRegisterMenu() {
         </div>
       </li>
       <li className="nav-item dropdown">
+      
         <a
           className="nav-link dropdown-toggle text-light"
           href="#"
@@ -38,7 +39,7 @@ function LoginRegisterMenu() {
           aria-haspopup="true"
           aria-expanded="false"
         >
-          REGISTER
+          SIGN UP
         </a>
         <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <Link className="dropdown-item" to="/regdonor">

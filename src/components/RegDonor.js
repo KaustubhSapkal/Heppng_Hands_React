@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import uservalidation from "../uservalidation";
 import ReCAPTCHA from "react-google-recaptcha";
 import {BASE_API} from "./ApiConstant";
+import swal from 'sweetalert';
 
 function RegDonor() {
   const history = useHistory();
@@ -41,19 +42,33 @@ function RegDonor() {
         .post(BASE_API+"/api/donors", user)
         .then((resp) => {
           console.log(resp);
-          alert("Donor registered successfully");
+          //alert("Donor registered successfully");
+          swal({
+            title: "Registered successfully!",
+            text: "Welcome To Helping Hands",
+            icon: "success",
+            button: "OK",
+          });
           history.push("/slogin");
         })
-        .catch((error) => console.log("Error", error));
+        .catch((error) =>{
+          console.log("Error", error);
+          swal({
+            title: "Network Error!",
+            text: "Please try after some time",
+            icon: "error",
+            button: "OK",
+          });
+        });
     }
   }, [errors]);
   return (
     <div className="container">
-      <div className="card shadow bg-dark mt-3 text-white">
+      <div className="card shadow mt-5 ml-5  text-dark col-sm-9" style={{background:"#E3F2FD"}}>
         <div className="card-body">
           <div className="row">
             <div className="col-sm-6 mx-auto">
-              <h4 className="text-center p-2">Donor Registration Form</h4>
+              <h4 className="text-center p-2">Sign Up</h4>
               <form onSubmit={handleSubmit}>
                 <div className="form-group form-row">
                   <label className="col-sm-4 form-control-label">
@@ -63,6 +78,7 @@ function RegDonor() {
                     <input
                       type="text"
                       name="name"
+                      placeholder="Name"
                       value={user.name}
                       onChange={handleInput}
                       className="form-control"
@@ -80,6 +96,7 @@ function RegDonor() {
                     <input
                       type="text"
                       name="city"
+                      placeholder="City"
                       value={user.city}
                       onChange={handleInput}
                       className="form-control"
@@ -99,6 +116,7 @@ function RegDonor() {
                     <input
                       type="text"
                       name="email"
+                      placeholder="name@gamil.com"
                       value={user.email}
                       onChange={handleInput}
                       className="form-control"
@@ -117,6 +135,7 @@ function RegDonor() {
                       type="number"
                       maxLength="10"
                       name="phone"
+                      placeholder="1234567890"
                       value={user.phone}
                       onChange={handleInput}
                       className="form-control"
@@ -136,6 +155,7 @@ function RegDonor() {
                     <input
                       type="password"
                       name="pwd"
+                      placeholder="********"
                       value={user.pwd}
                       onChange={handleInput}
                       className="form-control"
@@ -155,6 +175,7 @@ function RegDonor() {
                     <input
                       type="password"
                       name="cpwd"
+                      placeholder="********"
                       value={user.cpwd}
                       onChange={handleInput}
                       className="form-control"

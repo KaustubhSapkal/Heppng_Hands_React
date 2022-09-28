@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import loginvalidation from "../loginvalidation";
 import ReCAPTCHA from "react-google-recaptcha";
 import {BASE_API} from "./ApiConstant";
+import swal from 'sweetalert';
 
 function AdminLogin() {
   const dispatch = useDispatch();
@@ -46,22 +47,35 @@ function AdminLogin() {
           sessionStorage.setItem("role", "admin");
           dispatch({ type: "IsLoggedIn" });
           history.push("/aprofile");
-          alert("LogIn succesfull");
+          swal({
+            title: "Login Succesful!",
+            text: "Welcome To Helping Hands",
+            icon: "success",
+            button: "OK",
+          });
         })
         .catch((error) => {
           console.log("Error", error);
-          setErrmsg("Invalid username or password..!!");
+          //setErrmsg("Invalid username or password..!!");
+          swal({
+            title: "Login Error",
+            text: "Invalid username or password..!!",
+            icon: "error",
+            button: "OK",
+          });
         });
     }
-  }, [errors]);
+  }, [errors]); 
+
+  
 
   return (
     <div className="container ">
-      <div className="card shadow mt-3 bg-dark text-light ">
+      <div className="card shadow mt-5 ml-5  text-dark col-sm-9" style={{background:"#E3F2FD"}}>
         <div className="card-body">
           <div className="row">
             <div className="col-sm-6 mx-auto">
-              <h4 className="text-center p-2">Admin Login Form</h4>
+              <h4 className="text-center p-2">Login</h4>
               <form onSubmit={handleSubmit}>
                 <div className="form-group form-row">
                   <label className="col-sm-4 form-control-label">
@@ -72,6 +86,7 @@ function AdminLogin() {
                       type="text"
                       name="email"
                       value={user.email}
+                      placeholder="name@gmail.com"
                       onChange={handleInput}
                       className="form-control"
                     />
@@ -91,6 +106,7 @@ function AdminLogin() {
                       type="password"
                       name="pwd"
                       value={user.pwd}
+                      placeholder="********"
                       onChange={handleInput}
                       className="form-control"
                     />
@@ -108,9 +124,11 @@ function AdminLogin() {
                   <br />
                   <div></div>
                 <button className="btn btn-primary float-right" disabled={!cap}>
-                  Login Now
+                  Login
                 </button>
+                
               </form>
+              
               <div className="clearfix"></div>
               {errmsg && (
                 <p className="alert alert-danger mt-4 text-center font-weight-bold">
@@ -118,6 +136,7 @@ function AdminLogin() {
                 </p>
               )}
             </div>
+            
           </div>
         </div>
       </div>

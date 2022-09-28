@@ -21,7 +21,7 @@ function DonorProfile() {
   }, []);
   return (
     <div className="container">
-      <div className="card shadow m-3 p-2 bg-dark text-light text-center">
+      <div className="card shadow m-3 p-2 text-dark text-center" style={{background:"#E3F2FD"}}>
         <h4
           className="p-2"
           style={{

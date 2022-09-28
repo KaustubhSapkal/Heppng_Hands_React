@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import Product from './Product';
 import {BASE_API} from "./ApiConstant";
+import swal from 'sweetalert';
 
 function AllProduct() {
   const [products, setProducts] = useState([]);
@@ -29,7 +30,11 @@ function AllProduct() {
     if(val < 0){
 
       setMessage('');
-      alert("Invalide Quantity");
+      swal({
+        title: "Invalide Quantiy!!",
+        text: "Please check the Quantity and Try Again!!",
+        icon: "warning",
+      })
       
       inputRef.current.value = '';
     }
@@ -89,10 +94,16 @@ function AllProduct() {
   
   const addToCart = (item) => {
     if (sessionStorage.getItem('email') == null) {
-      alert('Please login first to buy product');
+      //alert('Please login first to buy product');
+      swal("Please login first to buy product!", {
+        icon: "warning",
+      });
       history.push('/clogin');
     } else if (sessionStorage.getItem('role') !== 'customer') {
-      alert('Only receiver can buy product');
+      //alert('Only receiver can buy product');
+      swal("Only receiver can buy product!", {
+        icon: "warning",
+      });
     } else {
       if (checkItem(item.prodid)) {
         showModal();
@@ -100,9 +111,15 @@ function AllProduct() {
         setShowDialog('modal fade');
         item.qty = qty;
         dispatch({ type: 'AddItem', payload: item });
-        alert('Item added to cart successfully');
+        //alert('Item added to cart successfully');
+        swal("Item added to cart successfully!", {
+          icon: "success",
+        });
       } else {
-        alert('Item already in cart');
+        //alert('Item already in cart');
+        swal("Item already in cart!", {
+          icon: "warning",
+        });
       }
     }
   };
@@ -116,9 +133,14 @@ function AllProduct() {
       <div className="container-fluid" style={{ width: '92%' }}>
         <div className="card shadow bg-transparent">
           <div className="card-body">
+            <div className="row">
+              {products.map((x) => (
+                <Product key={x.prodid} x={x} showModal={showModal} />
+              ))}
+            </div>
             <ReactPaginate
-              previousLabel={'← Previous'}
-              nextLabel={'Next →'}
+              previousLabel={'←'}
+              nextLabel={'→'}
               containerClassName={'pagination'}
               pageCount={totalPage}
               onPageChange={handlePageClick}
@@ -126,12 +148,7 @@ function AllProduct() {
               nextLinkClassName={'pagination__link'}
               disabledClassName={'pagination__link--disabled'}
               activeClassName={'pagination__link--active'}
-            />
-            <div className="row">
-              {products.map((x) => (
-                <Product key={x.prodid} x={x} showModal={showModal} />
-              ))}
-            </div>
+            /> 
           </div>
         </div>
         {display == 'block' ? (
@@ -157,8 +174,9 @@ function AllProduct() {
                       <h4 className="p-2 text-warning">{item.pname}</h4>
                       
                       <h5 className="px-2">Category: {item.pcat}</h5>
-                      <h5 className="px-2">Seller: {item.donorName}</h5>
+                      <h5 className="px-2">Donor Name: {item.donorName}</h5>
                       <h5 className="px-2">Quantity Available: {item.qty}</h5>
+                      <label className="px-2">Quantity</label>
                       <input
                         id="message"
                         name={message}

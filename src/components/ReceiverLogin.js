@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import loginvalidation from '../loginvalidation';
 import ReCAPTCHA from "react-google-recaptcha";
 import {BASE_API} from "./ApiConstant";
+import swal from 'sweetalert';
 
 function ReceiverLogin() {
   const dispatch = useDispatch();
@@ -48,22 +49,32 @@ function ReceiverLogin() {
           sessionStorage.setItem('id', result.id);
           dispatch({ type: 'IsLoggedIn' });
           history.push('/');
-          alert("LogIn succesfull");
+          swal({
+            title: "Login Succesful!",
+            text: "Welcome To Helping Hands",
+            icon: "success",
+            button: "OK",
+          });
         })
         .catch((error) => {
           console.log('Error', error);
-          alert('Invalid username or password');
+          swal({
+            title: "Login Error",
+            text: "Invalid username or password..!!",
+            icon: "error",
+            button: "OK",
+          });
         });
     }
   }, [errors]);
 
   return (
     <div className="container">
-      <div className="card shadow bg-dark text-light mt-3 ">
+      <div className="card shadow mt-5 ml-5  text-dark col-sm-9" style={{background:"#E3F2FD"}}>
         <div className="card-body">
           <div className="row">
             <div className="col-sm-6 mx-auto">
-              <h4 className="text-center p-2">Receiver Login Form</h4>
+              <h4 className="text-center p-2">Login</h4>
               <form onSubmit={handleSubmit}>
                 <div className="form-group form-row">
                   <label className="col-sm-4 form-control-label">

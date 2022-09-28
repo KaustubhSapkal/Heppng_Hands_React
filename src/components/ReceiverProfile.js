@@ -40,10 +40,10 @@ function ReceiverProfile() {
   };
 
   return (
-    <div className="container text-white">
+    <div className="container text-dark">
       <div className="row">
         <div className="col-sm-7 mx-auto">
-          <div className="card shadow bg-dark mt-3">
+          <div className="card shadow  mt-3" style={{background:"#C8E6C9"}}>
             <div className="card-body">
               <h4 className="p-2 text-center">Welcome {uname}</h4>
               <form onSubmit={handleSubmit}>

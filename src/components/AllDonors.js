@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {BASE_API} from "./ApiConstant";
+import swal from 'sweetalert';
 
 function AllDonors() {
   const [sellers, setSellers] = useState([]);
@@ -13,18 +14,30 @@ function AllDonors() {
   }, []);
 
   const deleteDonor = (id) => {
-    
-      let response = window.confirm("Are you sure to delete this supplier ?");
-    if (response) {
-      console.log(id);
-      axios.delete(BASE_API+"/api/donors/" + id).then((resp) => {
-        axios.get(BASE_API+"/api/donors").then((resp) => {
-          //console.log(resp.data.data)
-          setSellers(resp.data.data);
-        });
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this Receiver!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          swal("Receiver has been deleted!", {
+            icon: "success",
+          });
+          axios.delete(BASE_API+"/api/donors/" + id).then((resp) => {
+            axios.get(BASE_API+"/api/donors").then((resp) => {
+              setSellers(resp.data.data);
+            });
+          });
+
+        } else {
+          swal("Receiver is safe!",{
+            icon:"info"
+          });
+        }
       });
-    }
-    
   };
 
   return (
@@ -54,9 +67,9 @@ function AllDonors() {
               <td>
                 <button
                   onClick={(e) => deleteDonor(x.id)}
-                  className="btn btn-danger btn-sm"
+                  className="btn btn-danger btn-md"
                 >
-                  Delete
+                  <span className="bi bi-trash"></span>
                 </button>
               </td>
             </tr>

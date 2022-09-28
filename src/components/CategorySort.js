@@ -6,6 +6,7 @@ import ReactPaginate from 'react-paginate';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import {BASE_API} from "./ApiConstant";
+import swal from 'sweetalert';
 
 function CategorySort () {
 
@@ -38,7 +39,11 @@ const validate = (e) => {
   if(val < 0){
 
     setMessage('');
-    alert("Invalide Quantity");
+    swal({
+      title: "Invalide Quantiy!!",
+      text: "Please check the Quantity and Try Again!!",
+      icon: "warning",
+    })
     
     inputRef.current.value = '';
   }
@@ -87,10 +92,16 @@ const changeCategory=()=>{
 }
 const addToCart = (item) => {
   if (sessionStorage.getItem('email') == null) {
-    alert('Please login first to buy product');
+    
+    swal("Please login first to buy product!", {
+      icon: "warning",
+    });
     history.push('/clogin');
   } else if (sessionStorage.getItem('role') !== 'customer') {
-    alert('Only receiver can buy product');
+    //alert('Only receiver can buy product');
+    swal("Only receiver can book product!", {
+      icon: "warning",
+    });
   } else {
     if (checkItem(item.prodid)) {
       showModal();
@@ -98,9 +109,15 @@ const addToCart = (item) => {
       setShowDialog('modal fade');
       item.qty = qty;
       dispatch({ type: 'AddItem', payload: item });
-      alert('Item added to cart successfully');
+      //alert('Item added to cart successfully');
+      swal("Item added to cart successfully!", {
+        icon: "success",
+      });
     } else {
-      alert('Item already in cart');
+      //alert('Item already in cart');
+      swal("Item already in cart!", {
+        icon: "warning",
+      });
     }
   }
 };
@@ -112,45 +129,35 @@ return(
         <br />
         <br />
         <div className="col-12 float-left">
-            <span className = "col-sm-2"></span>
+            
                     <select
                       name="pcat"
                       value={cats.pcat}
                         onChange={handleInput}
-                      className="form-control col-sm-6 float-left ml-5 mr-3"
+                      className="form-control col-sm-3 float-left ml-5 mr-3"
                     >
                       <option value="">Select Category</option>
-                      <option>Cloths</option>
+                      <option>Clothes</option>
                       <option>Furniture</option>
                       <option>Footwear</option>
                       <option>Electronics</option>
                       <option>Utensils</option>
+                      <option>Others</option>
                     </select>
                     {errors.pcat && (
                       <small className="text-danger float-left">
                         {errors.pcat}
                       </small>
                     )}
-                    <button className="btn btn-primary col-sm-2 form-control" onClick={changeCategory}>
-                        Search Product
+                    <button className="btn btn-primary col-sm-1 form-control" onClick={changeCategory}>
+                        Search
                     </button>
         </div>
         <br />
         <br /><br />
-        {/* {categoryList} */}
+        
         <div className="card-body">
-            <ReactPaginate
-              previousLabel={'← Previous'}
-              nextLabel={'Next →'}
-              containerClassName={'pagination'}
-              pageCount={totalPage}
-              onPageChange={handlePageClick}
-              previousLinkClassName={'pagination__link'}
-              nextLinkClassName={'pagination__link'}
-              disabledClassName={'pagination__link--disabled'}
-              activeClassName={'pagination__link--active'}
-            />
-            
+          
             <div className="row">
              {products == "" ? (
                 <h4 >No Available Products</h4>
@@ -162,6 +169,19 @@ return(
                 )))
               }
             </div>
+
+            <ReactPaginate
+              previousLabel={'←'}
+              nextLabel={'→'}
+              containerClassName={'pagination'}
+              pageCount={totalPage}
+              onPageChange={handlePageClick}
+              previousLinkClassName={'pagination__link'}
+              nextLinkClassName={'pagination__link'}
+              disabledClassName={'pagination__link--disabled'}
+              activeClassName={'pagination__link--active'}
+            />
+
           </div>
           {display == 'block' ? (
           <div
@@ -186,9 +206,10 @@ return(
                       <h4 className="p-2 text-warning">{item.pname}</h4>
                       
                       <h5 className="px-2">Category: {item.pcat}</h5>
-                      <h5 className="px-2">Seller: {item.sellerName}</h5>
+                      <h5 className="px-2">Donor Name: {item.donorName}</h5>
                       
                       <h5 className="px-2">Quantity Available: {item.qty}</h5>
+                      <label className="px-2">Quantity</label>
                       <input
                         id="message"
                         name={message}

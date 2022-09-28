@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import productvalidation from './productvalidation';
 import {BASE_API} from "./ApiConstant";
+import swal from 'sweetalert';
 
 function AddProduct() {
   const sellerid = sessionStorage.getItem('id');
@@ -47,43 +48,30 @@ function AddProduct() {
         .then((resp) => {
           let result = resp.data.data;
           console.log(result);
-          alert('Product saved successfully');
+          //alert('Product saved successfully');
+          swal("Product saved successfully!", {
+            icon: "success",
+          });
           history.push('/myproducts');
         })
         .catch((error) => {
           console.log('Error', error);
-          alert('Error saving product');
+          //alert('Error saving product');
+          swal("Error saving Product!", {
+            icon: "error",
+          });
         });
     }
   }, [errors]);
   return (
     <div className="container">
-      <div className="card shadow bg-dark text-white">
+      <div className="card shadow text-dark" style={{background:"#E3F2FD"}}>
         <div className="card-body">
           <div className="row">
             <div className="col-sm-6 mx-auto">
-              <h4 className="text-center p-2">Add Product Form</h4>
+              <h4 className="text-center p-2">Add Product</h4>
               <form onSubmit={handleSubmit}>
-                <div className="form-group form-row">
-                  <label className="col-sm-4 form-control-label">
-                    Product Name
-                  </label>
-                  <div className="col-sm-8">
-                    <input
-                      type="text"
-                      name="pname"
-                      value={product.pname}
-                      onChange={handleInput}
-                      className="form-control"
-                    />
-                    {errors.pname && (
-                      <small className="text-danger float-right">
-                        {errors.pname}
-                      </small>
-                    )}
-                  </div>
-                </div>
-                <div className="form-group form-row">
+              <div className="form-group form-row">
                   <label className="col-sm-4 form-control-label">
                     Category
                   </label>
@@ -95,11 +83,12 @@ function AddProduct() {
                       className="form-control"
                     >
                       <option value="">Select Category</option>
-                      <option>Cloths</option>
+                      <option>Clothes</option>
                       <option>Furniture</option>
                       <option>Footwear</option>
                       <option>Electronics</option>
                       <option>Utensils</option>
+                      <option>Others</option>
                     </select>
                     {errors.pcat && (
                       <small className="text-danger float-right">
@@ -108,6 +97,27 @@ function AddProduct() {
                     )}
                   </div>
                 </div>
+                <div className="form-group form-row">
+                  <label className="col-sm-4 form-control-label">
+                    Product Name
+                  </label>
+                  <div className="col-sm-8">
+                    <input
+                      type="text"
+                      name="pname"
+                      placeholder='Product Name'
+                      value={product.pname}
+                      onChange={handleInput}
+                      className="form-control"
+                    />
+                    {errors.pname && (
+                      <small className="text-danger float-right">
+                        {errors.pname}
+                      </small>
+                    )}
+                  </div>
+                </div>
+                
       
                 
                 <div className="form-group form-row ">
@@ -116,6 +126,7 @@ function AddProduct() {
                     <input
                       type="number"
                       name="qty"
+                      placeholder='1'
                       value={product.qty}
                       onChange={handleInput}
                       className="form-control"
@@ -143,7 +154,7 @@ function AddProduct() {
                 </div>
 
                 <button className="btn btn-primary float-right">
-                  Add Product
+                  Add
                 </button>
               </form>
             </div>

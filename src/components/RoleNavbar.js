@@ -56,20 +56,31 @@ const RoleNavbar = ({ isLoggedIn }) => {
             Profile
           </Link>
         </li>
-        <li className="nav-item active">
-          <Link className="nav-link text-light" to="/add-product">
-            Add Product
+        <li className="nav-item dropdown">
+        <a
+          className="nav-link dropdown-toggle text-light"
+          href="#"
+          id="navbarDropdownMenuLink"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Products
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <Link className="nav-link" to="/myproducts">
+           View
           </Link>
-        </li>
-        <li className="nav-item active">
-          <Link className="nav-link text-light" to="/myproducts">
-            Products
+        
+        <Link className="nav-link " to="/add-product">
+            Add
           </Link>
-        </li>
-        <li className="nav-item active">
-          <Link className="nav-link text-light" to="/request">
+        
+        <Link className="nav-link" to="/request">
             Request
           </Link>
+        </div>
         </li>
         <li className="nav-item active">
           <Link className="nav-link text-light" onClick={logout} to="#">

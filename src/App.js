@@ -3,7 +3,7 @@ import "./App.css";
 import Header from "./components/Header";
 import RegDonor from "./components/RegDonor";
 import NavBar from "./components/NavBar";
-import RegReceier from "./components/RegReceier";
+import RegReceiver from "./components/RegReceiver";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import AdminLogin from "./components/AdminLogin";
 import AdminProfile from "./components/AdminProfile";
@@ -27,6 +27,8 @@ import DonorOrderDetails from "./components/DonorOrderDetails";
 import AdminProduct from "./components/AdminProduct";
 
 
+
+
 function App() {
   return (
     <div className="App">
@@ -41,7 +43,7 @@ function App() {
           <Route component={AllProduct} path="/" exact />
           <Route component={AllProduct} path="/cat/:pcat/:subcat" />
           <Route component={RegDonor} path="/Regdonor" />
-          <Route component={RegReceier} path="/register" />
+          <Route component={RegReceiver} path="/register" />
           <Route component={AdminLogin} path="/alogin" />
           <Route component={DonorLogin} path="/slogin" />
           <Route component={AddProduct} path="/add-product" />          
@@ -59,6 +61,7 @@ function App() {
           <Route component={Footer} path="/footer" />
           <Route component={DonorOrderDetails} path="/request" /> 
           <Route component={AdminProduct} path="/product" /> 
+          
         </Switch>
       </BrowserRouter>
       <Footer></Footer>

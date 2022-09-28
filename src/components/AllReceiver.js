@@ -14,8 +14,8 @@ function AllReceiver() {
   return (
     <div className="container-fluid">
       <h4 className="text-white p-2 text-center">All Customers</h4>
-      <table className="table table-bordered table-dark table-striped table-hover">
-        <thead>
+      <table className="table table-bordered table-striped table-light table-hover" >
+        <thead className="table-dark">
           <tr>
             <th>Name</th>
             <th>City</th>

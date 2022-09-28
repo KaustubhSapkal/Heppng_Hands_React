@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {BASE_API} from "./ApiConstant";
+import swal from 'sweetalert';
 
 function AdminProduct() {
   const sellerid = sessionStorage.getItem("id");
@@ -17,12 +18,24 @@ function AdminProduct() {
   }, []);
 
   const deleteProduct = (prodid) => {
-    let resp = window.confirm("Are you sure to delete this product ?");
-    if (resp) {
-      axios
+   // let resp = window.confirm("Are you sure to delete this product ?");
+
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this Product!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        swal("Product deleted successfully!", {
+          icon: "success",  
+        });
+        axios
         .delete(BASE_API+"/api/products/" + prodid)
         .then((resp) => {
-          alert("Product deleted successfully");
+          
           axios
             .get(BASE_API+"/api/products")
             .then((resp) => {
@@ -31,16 +44,22 @@ function AdminProduct() {
               console.log(products);
             }); 
         });
-    }
+
+      } else {
+        swal("Your Product is safe!",{
+          icon:"info"
+        });
+      }
+    });
   };
 
   return (
     <div className="container">
-      <div className="card shadow bg-dark text-white">
+      <div className="card shadow bg-light text-dark">
         <div className="card-body">
           <h4>My Products</h4>
           <table className="table table-bordered">
-            <thead className="table-light">
+            <thead className="table-dark">
               <tr>
                 <th>Name</th>
                 <th>Category</th>
@@ -54,7 +73,7 @@ function AdminProduct() {
             <tbody>
               {products.map((x) => (
                 <tr key={x.prodid}>
-                  <td className="text-light">
+                  <td className="text-dark">
                     <img
                       width="100"
                       src={BASE_API+"/" + x.photo}
@@ -62,18 +81,18 @@ function AdminProduct() {
                     />&emsp;&emsp;
                     {x.pname}
                   </td>
-                  <td className="text-light">{x.pcat}</td>
-                  <td className="text-light">{x.donorName}</td>
+                  <td className="text-dark">{x.pcat}</td>
+                  <td className="text-dark">{x.donorName}</td>
                   {/* <td className="text-light">{x.subcat}</td> */}
                   {/* <td className="text-light">{x.brand}</td> */}
                   
-                  <td className="text-light ">{x.qty}</td>
+                  <td className="text-dark ">{x.qty}</td>
                   <td>
                     <button
                       onClick={() => deleteProduct(x.prodid)}
-                      className="btn btn-danger btn-sm"
+                      className="btn btn-danger btn-md"
                     >
-                      Delete
+                      <span className="bi bi-trash"></span>
                     </button>
                   </td>
                 </tr>

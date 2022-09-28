@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {BASE_API} from "./ApiConstant";
 //import { AxiosResponse, AxiosError } from 'axios'
+import swal from 'sweetalert';
 
 function ViewCart() {
  
@@ -14,8 +15,8 @@ function ViewCart() {
 
   const [address, setAddress] = useState({
     city: "",
-    state: "Delhi",
-    zip: "12324",
+    state: "Maharashtra",
+    zip: "415124",
     country: "India",
   });
 
@@ -29,12 +30,28 @@ function ViewCart() {
   // });
 
   const deleteItem = (item) => {
-    let resp = window.confirm("Are you sure to delete this item ?");
-    if (resp) {
-      dispatch({ type: "RemoveItem", payload: item });
-      // let amount = state.cart.reduce((a, b) => a + b.price, 0);
-      // console.log("Amount ", amount);
-    }
+    //let resp = window.confirm("Are you sure to delete this item ?");
+
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this Product!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        swal("Product has been deleted!", {
+          icon: "success",
+        });
+        dispatch({ type: "RemoveItem", payload: item });
+        history.push('/')
+      } else {
+        swal("Your Product is safe!",{
+          icon:"info"
+        });
+      }
+    });
   };
   const handleAddressInput = (e) => {
     setAddress({ ...address, [e.target.name]: e.target.value });
@@ -77,7 +94,12 @@ function ViewCart() {
       dispatch({ type: "Clear" });
       history.push("/myorders");
     }else{
-      alert("Invalide Quantiy")
+      //alert("Invalide Quantiy")
+      swal({
+        title: "Invalide Quantiy!!",
+        text: "Please check the Quantity and Try Again!!",
+        icon: "warning",
+      })
       dispatch({ type: "RemoveItem", payload: state.cart[0] });
       history.push("/")
     }
@@ -94,8 +116,8 @@ function ViewCart() {
         <div className="row">
           <div className="col-sm-7">
             <h4 className="p-2">Cart View</h4>
-            <table className="table table-bordered table-dark table-striped">
-              <thead>
+            <table className="table table-bordered table-light table-striped">
+              <thead className="table-dark">
                 <tr>
                   <th>Prodid</th>
                   
@@ -124,9 +146,9 @@ function ViewCart() {
                     <td>
                       <button
                         onClick={(e) => deleteItem(item)}
-                        className="btn btn-danger"
+                        className="btn btn-danger btn-md"
                       >
-                        Delete
+                         <span className="bi bi-trash"></span>
                       </button>
                     </td>
                   </tr>
